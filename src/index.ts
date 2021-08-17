@@ -1,3 +1,3 @@
-export function hello (): string {
-    return 'hello world';
-}
+import { Model } from './model/model';
+
+export { Model };
