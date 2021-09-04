@@ -5,7 +5,7 @@ export const metaKey = Symbol('metainfo');
 export type MetaInfo = {
     modelName?: string;
     transport?: string;
-    idKey?: string | symbol;
+    idKey?: string;
 } 
 
 type CtorWithMeta = Ctor<unknown> & {

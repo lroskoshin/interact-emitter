@@ -26,8 +26,9 @@ export function ensureModelName(ctor: Ctor<unknown>): string {
     return modelName;
 }
 
-export function Id(): PropertyDecorator {
-    return (target: unknown, propertyKey: string | symbol): void => {
+// eslint-disable-next-line @typescript-eslint/ban-types
+export function Id(): (target: Object, propertyKey: string) => void {
+    return (target: unknown, propertyKey: string): void => {
         const ctor = (target as { constructor: Ctor<unknown> }).constructor;
         const meta = getMetainfo(ctor);
         if (meta === undefined) {
@@ -40,6 +41,6 @@ export function Id(): PropertyDecorator {
     };
 }
 
-export function getIdKey(ctor: Ctor<unknown>): string | symbol | undefined {
+export function getIdKey(ctor: Ctor<unknown>): string | undefined {
     return getMetainfo(ctor)?.idKey;
 }

@@ -12,7 +12,8 @@ export function save<T>(entity: Pick<T, keyof T>): ModelMessage {
     const modelName = getModelName(ctor) as string;
     const id = entity[idKey];
     if (idKey in entity && typeof id === 'string') {
-        return updateEntity(id, getSavedEntity(ctor, id), entity, modelName);
+        const savedEntity = getSavedEntity(ctor, id);
+        return updateEntity(id, savedEntity, entity, modelName);
     } else {
         return createNewEntity(entity, modelName);
     } 
@@ -28,7 +29,7 @@ export function createNewEntity(entity: Record<string, unknown>, modelName: stri
     };
 }
 
-export function updateEntity<Id extends string | symbol,  Entity extends SavedEntity<Id, unknown>>(
+export function updateEntity<Id extends string,  Entity extends SavedEntity<Id, unknown>>(
         id: string | symbol, 
         savedEntity: Entity, 
         newEntity:  Record<string, unknown>,
